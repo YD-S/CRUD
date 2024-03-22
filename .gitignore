@@ -1,0 +1,35 @@
+# Ignore system files
+.DS_Store
+
+# Ignore node modules
+node_modules/
+
+# Ignore log files
+*.log
+
+# Ignore the build folder
+/dist
+
+# Ignore IDE specific files
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo
+*.swn
+*.bak
+*.pyc
+*.pyo
+*.rbc
+*.sass-cache
+*.class
+*.project
+*.settings
+*.tmproj
+*.tmproject
+*.sublime-project
+*.sublime-workspace
+*.komodoproject
+*.komodoproject.bak
+*.komodoworkspace
+*.komodoworkspace.bak
