@@ -1,21 +1,7 @@
-const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize('mydatabase', 'postgres', 'postgres', {
-    host: 'db', // Docker container name
-    dialect: 'postgres',
-    port: 5432, // Default PostgreSQL port
-});
 
-// Test the connection
-async function testConnection() {
-    try {
-        await sequelize.authenticate();
-        console.log('Connection has been established successfully.');
-    } catch (error) {
-        console.error('Unable to connect to the database:', error);
-    }
-}
+const { Client } = require('pg');
 
-testConnection();
+const client = new Client({ user: 'your_username', host: 'your_host', database: 'your_database', password: 'your_password', port: 'your_port', });
 
-module.exports = sequelize;
+client.connect() .then(() => { console.log('Connected to PostgreSQL database!'); }) .catch((err) => { console.error('Error connecting to the database:', err); });
