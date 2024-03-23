@@ -1,7 +1,17 @@
 
+const express = require('express')
+const {sequelize, connectDb} = require('./db')
+const apiRoutes = require('./routes')
 
-const { Client } = require('pg');
+const app = express()
 
-const client = new Client({ user: 'postgres', host: 'postgres', database: 'mydatabase', password: 'postgres', port: '5432', });
+app.use('/api', apiRoutes)
 
-client.connect() .then(() => { console.log('Connected to PostgreSQL database!'); }) .catch((err) => { console.error('Error connecting to the database:', err); });
+app.get('/', (req, res) => {
+    res.status(200).json({ message: 'Hello World' })
+})
+
+app.listen(3000, async () => {
+  console.log('Server is running on port 3000')
+    await connectDb()
+})
