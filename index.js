@@ -28,7 +28,11 @@ app.use((error, req, res, next) => {
     res.status(status).json({ message: message })
 })
 
-app.listen(3000, async () => {
-  console.log('Server is running on port 3000')
-    await connectDb()
-})
+sequelize
+    .sync()
+    .then(result => {
+        app.listen(3000, () => {
+            console.log('Server running on port 3000')
+        })
+    })
+    .catch(err => console.log(err))
