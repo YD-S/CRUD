@@ -1,8 +1,7 @@
 
 const express = require('express')
 const bodyParser = require('body-parser')
-const {sequelize, connectDb} = require('./db')
-const apiRoutes = require('./routes')
+const sequelize = require('./db')
 const User = require('./models/user')
 
 const app = express()
@@ -28,8 +27,7 @@ app.use((error, req, res, next) => {
     res.status(status).json({ message: message })
 })
 
-sequelize
-    .sync()
+sequelize.sync()
     .then(result => {
         app.listen(3000, () => {
             console.log('Server running on port 3000')
