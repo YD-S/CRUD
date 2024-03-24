@@ -1,14 +1,31 @@
 
 const express = require('express')
+const bodyParser = require('body-parser')
 const {sequelize, connectDb} = require('./db')
 const apiRoutes = require('./routes')
+const User = require('./models/user')
 
 const app = express()
 
-app.use('/api', apiRoutes)
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
+    next()
+})
 
-app.get('/', (req, res) => {
-    res.status(200).json({ message: 'Hello World' })
+app.use('/api', require('./routes'))
+
+app.use('/' , (req, res, next) => {
+    res.send('Welcome to the home page')
+})
+
+app.use((error, req, res, next) => {
+    console.log(error)
+    const status = error.statusCode || 500
+    const message = error.message
+    res.status(status).json({ message: message })
 })
 
 app.listen(3000, async () => {
