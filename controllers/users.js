@@ -26,10 +26,11 @@ exports.getUserById = async (req, res, next) => {
 }
 
 exports.createUser = async (req, res, next) => {
-    const { name, email } = req.body;
+    const { name, email, phone } = req.body;
     User.create({
         name: name,
-        email: email
+        email: email,
+        phone: phone
     })
         .then(user => {
             res.status(201).json(user);
@@ -41,7 +42,7 @@ exports.createUser = async (req, res, next) => {
 
 exports.updateUser = async (req, res, next) => {
     const userId = req.params.id;
-    const { name, email } = req.body;
+    const { name, email, phone } = req.body;
     User.findByPk(userId)
         .then(user => {
             if (!user) {
@@ -49,6 +50,7 @@ exports.updateUser = async (req, res, next) => {
             }
             user.name = name;
             user.email = email;
+            user.phone = phone;
             return user.save();
         })
         .then(user => {
